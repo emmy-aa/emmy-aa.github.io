@@ -1,1 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Emmy Apaloo | Technical Writer & Cybersecurity Graduate Student</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --bg-card: #1a1814;
+    --bg-card-hover: #201e1a;
+    --cream: #e8dfc8;
+    --tan: #c4aa82;
+    --tan-muted: #8a7560;
+    --accent: #d4956a;
+    --accent-dim: #9c6040;
+    --border: rgba(196, 170, 130, 0.15);
+    --border-hover: rgba(196, 170, 130, 0.35);
+    --text-primary: #e8dfc8;
+    --text-secondary: #a89678;
+    --text-muted: #5c5040;
+    --mono: 'DM Mono', monospace;
+    --serif: 'DM Serif Display', serif;
+    --body: 'Lora', serif;
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(15, 14, 12, 0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  nav .inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav .logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--tan);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  nav .logo span {
+    color: var(--accent);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav ul a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--cream); }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    color: var(--tan);
+    font-style: italic;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 0.65rem 1.4rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0f0e0c;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--tan);
+    border-color: var(--tan);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--tan);
+    border: 1px solid var(--border-hover);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--tan);
+    color: var(--cream);
+  }
+
+  /* SECTION */
+  section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 600px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .about-text p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.97rem;
+  }
+
+  .about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent-dim);
+    padding: 1rem 1.25rem;
+    border-radius: 2px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--tan-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 0.9rem;
+    color: var(--cream);
+    font-family: var(--body);
+  }
+
+  /* WRITING SAMPLES */
+  .samples-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sample-card {
+    background: var(--bg-card);
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .sample-card:last-child { border-bottom: none; }
+
+  .sample-card:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .sample-category {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .sample-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--cream);
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .sample-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .sample-arrow {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--tan-muted);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .sample-card:hover .sample-arrow {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  .sample-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .badge-available {
+    background: rgba(212, 149, 106, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(212, 149, 106, 0.25);
+  }
+
+  .badge-soon {
+    background: rgba(90, 80, 64, 0.3);
+    color: var(--tan-muted);
+    border: 1px solid rgba(90, 80, 64, 0.4);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.25rem 1.4rem;
+  }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-list li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-list li::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-dim);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* EDUCATION */
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--tan-muted);
+    letter-spacing: 0.06em;
+    padding-top: 3px;
+    min-width: 60px;
+  }
+
+  .edu-info {}
+
+  .edu-degree {
+    font-size: 0.97rem;
+    color: var(--cream);
+    font-family: var(--body);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-school {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-family: var(--mono);
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-text p {
+    color: var(--text-secondary);
+    font-size: 0.97rem;
+    max-width: 420px;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero p { animation-delay: 0.3s; }
+  .hero-links { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="logo" href="#">EA<span>.</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#samples">Samples</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Technical Writing Portfolio</div>
+    <h1>Emmy Apaloo<br /><em>Writing at the edge of<br />security & clarity</em></h1>
+    <p>
+      Cybersecurity graduate student and technical writer who translates complex
+      security concepts into clear, actionable documentation — for technical teams
+      and non-technical stakeholders alike.
+    </p>
+    <div class="hero-links">
+      <a href="#samples" class="btn btn-primary">View Writing Samples</a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Background</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a graduate student pursuing an M.S. in Computer Information Sciences
+          with a Cybersecurity concentration at Harrisburg University of Science
+          and Technology.
+        </p>
+        <p>
+          My writing bridges the gap between complex technical systems and the
+          people who need to understand and act on them — whether that's a
+          first-time Substack creator, a security analyst reviewing threat
+          documentation, or an enterprise team evaluating architecture frameworks.
+        </p>
+        <p>
+          I specialize in security architecture, GRC frameworks, infrastructure
+          design, and making technical concepts accessible without dumbing them down.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-label">Current Program</div>
+          <div class="stat-value">M.S. Computer Information Sciences, Cybersecurity</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Institution</div>
+          <div class="stat-value">Harrisburg University of Science & Technology</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Focus Areas</div>
+          <div class="stat-value">Security Documentation · GRC · Technical Guides</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING SAMPLES -->
+  <section id="samples">
+    <div class="section-label">Writing Samples</div>
+    <h2 class="section-title">Featured Work</h2>
+
+    <div class="samples-grid">
+
+      <a href="samples/how-to-publish-substack.pdf" class="sample-card" target="_blank">
+        <div>
+          <div class="sample-category">Technical Communication</div>
+          <div class="sample-title">
+            How to Publish on Substack
+            <span class="sample-badge badge-available">PDF</span>
+          </div>
+          <div class="sample-desc">
+            A step-by-step guide walking beginners and content creators through
+            the Substack publishing process. Written for a general to intermediate
+            audience unfamiliar with the platform.
+          </div>
+        </div>
+        <div class="sample-arrow">↗</div>
+      </a>
+
+      <a href="samples/phishing-attacks.pdf" class="sample-card" target="_blank">
+        <div>
+          <div class="sample-category">Cybersecurity</div>
+          <div class="sample-title">
+            Understanding Phishing Attacks
+            <span class="sample-badge badge-available">PDF</span>
+          </div>
+          <div class="sample-desc">
+            A technical overview of phishing tactics, attack vectors, and
+            prevention strategies. Written for both general users and technical
+            practitioners.
+          </div>
+        </div>
+        <div class="sample-arrow">↗</div>
+      </a>
+
+      <div class="sample-card" style="cursor: default;">
+        <div>
+          <div class="sample-category">Security Architecture</div>
+          <div class="sample-title">
+            Zero Trust Architecture
+            <span class="sample-badge badge-soon">Coming Soon</span>
+          </div>
+          <div class="sample-desc">
+            Book chapter examining ZTA principles, implementation frameworks,
+            and enterprise adoption strategies. Written for an academic and
+            practitioner audience.
+          </div>
+        </div>
+        <div class="sample-arrow" style="opacity: 0.3;">↗</div>
+      </div>
+
+      <div class="sample-card" style="cursor: default;">
+        <div>
+          <div class="sample-category">Infrastructure & DevSecOps</div>
+          <div class="sample-title">
+            HashiCorp Vault IaC Deployment
+            <span class="sample-badge badge-soon">Coming Soon</span>
+          </div>
+          <div class="sample-desc">
+            Technical guide documenting a secrets management deployment using
+            Infrastructure as Code. Covers setup, configuration, and security
+            considerations.
+          </div>
+        </div>
+        <div class="sample-arrow" style="opacity: 0.3;">↗</div>
+      </div>
+
+      <div class="sample-card" style="cursor: default;">
+        <div>
+          <div class="sample-category">Infrastructure</div>
+          <div class="sample-title">
+            Enterprise Multi-Site Network Infrastructure Design
+            <span class="sample-badge badge-soon">Coming Soon</span>
+          </div>
+          <div class="sample-desc">
+            End-to-end network design documentation for a simulated enterprise
+            environment, including topology diagrams and security controls.
+          </div>
+        </div>
+        <div class="sample-arrow" style="opacity: 0.3;">↗</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">Tools & Expertise</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Writing & Docs</div>
+        <ul class="skill-list">
+          <li>Technical Reports</li>
+          <li>How-To Guides</li>
+          <li>SOPs & Runbooks</li>
+          <li>Security Policy Writing</li>
+          <li>User Documentation</li>
+          <li>Markdown</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Technical Domains</div>
+        <ul class="skill-list">
+          <li>Zero Trust Architecture</li>
+          <li>GRC Frameworks</li>
+          <li>Phishing & Social Engineering</li>
+          <li>Network Security</li>
+          <li>Cloud Infrastructure</li>
+          <li>Secrets Management</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Platforms</div>
+        <ul class="skill-list">
+          <li>Git & GitHub</li>
+          <li>HashiCorp Vault</li>
+          <li>Linux</li>
+          <li>Microsoft Word</li>
+          <li>Google Docs</li>
+          <li>Substack</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-year">Present</div>
+        <div class="edu-info">
+          <div class="edu-degree">M.S. Computer Information Sciences — Cybersecurity Concentration</div>
+          <div class="edu-school">Harrisburg University of Science and Technology</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">Prior</div>
+        <div class="edu-info">
+          <div class="edu-degree">M.A.S. Cyber Forensics and Security</div>
+          <div class="edu-school">Illinois Institute of Technology</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">Prior</div>
+        <div class="edu-info">
+          <div class="edu-degree">B.A. Computer Science</div>
+          <div class="edu-school">Hanover College</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="contact-inner">
+      <div class="contact-text">
+        <p>
+          Open to technical writing internships, cybersecurity roles, and
+          collaborative writing opportunities. Feel free to reach out.
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:your-email@email.com" class="btn btn-primary">Email Me</a>
+        <a href="https://linkedin.com/in/YOUR-LINKEDIN" class="btn btn-secondary" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Emmy Apaloo &mdash; Technical Writing Portfolio &mdash; Built with GitHub Pages</p>
+</footer>
+
+</body>
+</html>
