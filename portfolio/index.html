@@ -1,10 +1,2236 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Emmy Apaloo | Cybersecurity Portfolio & Technical Writing</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Emmy Apaloo | Cybersecurity Portfolio | SOC Analyst & Technical Writer
+</title>
+
+<meta name="description"
+content="Emmy Apaloo cybersecurity portfolio showcasing SOC labs, Wazuh SIEM projects, security research, and technical documentation.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+
+:root {
+
+--bg:#050505;
+--card:#0d1117;
+--card-hover:#161b22;
+
+--green:#00ff9d;
+--blue:#00b8ff;
+
+--text:#e6edf3;
+--muted:#8b949e;
+
+--border:#30363d;
+
+--terminal:#0a0f0d;
+
+--mono:'JetBrains Mono', monospace;
+--sans:'Inter', sans-serif;
+
+}
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+html{
+scroll-behavior:smooth;
+}
+
+
+body{
+
+background:
+radial-gradient(
+circle at top right,
+rgba(0,255,157,.08),
+transparent 30%
+),
+var(--bg);
+
+color:var(--text);
+
+font-family:var(--sans);
+
+line-height:1.6;
+
+}
+
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background-image:
+linear-gradient(
+rgba(0,255,157,.03) 1px,
+transparent 1px
+),
+linear-gradient(
+90deg,
+rgba(0,255,157,.03) 1px,
+transparent 1px
+);
+
+background-size:40px 40px;
+
+pointer-events:none;
+
+}
+
+
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:0 2rem;
+
+}
+
+
+
+/* NAVIGATION */
+
+
+nav{
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+background:rgba(5,5,5,.85);
+
+backdrop-filter:blur(15px);
+
+border-bottom:1px solid var(--border);
+
+}
+
+
+.nav-container{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+height:75px;
+
+}
+
+
+.logo{
+
+font-family:var(--mono);
+
+color:var(--green);
+
+font-size:1.2rem;
+
+text-decoration:none;
+
+}
+
+
+.logo span{
+
+color:white;
+
+}
+
+
+
+nav ul{
+
+display:flex;
+
+gap:2rem;
+
+list-style:none;
+
+}
+
+
+nav a{
+
+font-family:var(--mono);
+
+font-size:.85rem;
+
+color:var(--muted);
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+
+nav a:hover{
+
+color:var(--green);
+
+}
+
+
+
+/* HERO */
+
+
+.hero{
+
+min-height:90vh;
+
+display:grid;
+
+grid-template-columns:1fr 420px;
+
+align-items:center;
+
+gap:4rem;
+
+}
+
+
+
+.status{
+
+font-family:var(--mono);
+
+font-size:.8rem;
+
+color:var(--green);
+
+margin-bottom:1.5rem;
+
+}
+
+
+
+.status::before{
+
+content:"●";
+
+margin-right:.5rem;
+
+animation:pulse 1.5s infinite;
+
+}
+
+
+
+@keyframes pulse{
+
+50%{
+
+opacity:.3;
+
+}
+
+}
+
+
+
+.hero h1{
+
+font-size:clamp(3rem,6vw,5rem);
+
+line-height:1.1;
+
+margin-bottom:1.5rem;
+
+}
+
+
+
+.hero h1 span{
+
+color:var(--green);
+
+}
+
+
+
+.hero p{
+
+font-size:1.1rem;
+
+color:var(--muted);
+
+max-width:650px;
+
+}
+
+
+
+.buttons{
+
+display:flex;
+
+gap:1rem;
+
+margin-top:2rem;
+
+flex-wrap:wrap;
+
+}
+
+
+
+.btn{
+
+padding:.8rem 1.5rem;
+
+border-radius:6px;
+
+font-family:var(--mono);
+
+font-size:.85rem;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+
+
+.primary{
+
+background:var(--green);
+
+color:#000;
+
+}
+
+
+
+.primary:hover{
+
+box-shadow:
+0 0 25px rgba(0,255,157,.5);
+
+}
+
+
+
+.secondary{
+
+border:1px solid var(--border);
+
+color:white;
+
+}
+
+
+
+.secondary:hover{
+
+border-color:var(--green);
+
+color:var(--green);
+
+}
+
+
+
+/* TERMINAL */
+
+
+.terminal{
+
+background:var(--terminal);
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+overflow:hidden;
+
+box-shadow:
+0 0 40px rgba(0,255,157,.08);
+
+}
+
+
+.terminal-header{
+
+padding:.8rem;
+
+border-bottom:1px solid var(--border);
+
+display:flex;
+
+gap:.5rem;
+
+}
+
+
+
+.dot{
+
+height:10px;
+
+width:10px;
+
+border-radius:50%;
+
+background:#444;
+
+}
+
+
+
+.terminal-body{
+
+padding:1.5rem;
+
+font-family:var(--mono);
+
+font-size:.85rem;
+
+}
+
+
+
+.green{
+
+color:var(--green);
+
+}
+
+
+
+.blue{
+
+color:var(--blue);
+
+}
+
+
+
+.line{
+
+margin-bottom:.8rem;
+
+}
+
+
+
+/* AVATAR */
+
+
+.avatar-container{
+
+position:relative;
+
+}
+
+
+
+.avatar{
+
+height:400px;
+
+width:400px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(
+145deg,
+rgba(0,255,157,.2),
+rgba(0,184,255,.2)
+);
+
+border:1px solid var(--border);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+overflow:hidden;
+
+}
+
+
+
+.avatar-placeholder{
+
+text-align:center;
+
+font-family:var(--mono);
+
+color:var(--green);
+
+padding:2rem;
+
+}
+
+
+.avatar-placeholder span{
+
+display:block;
+
+font-size:4rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+@media(max-width:900px){
+
+.hero{
+
+grid-template-columns:1fr;
+
+}
+
+
+.avatar{
+
+width:300px;
+
+height:300px;
+
+margin:auto;
+
+}
+
+
+nav ul{
+
+display:none;
+
+}
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+<div class="container nav-container">
+
+
+<a href="#" class="logo">
+EA<span>_</span>
+</a>
+
+
+<ul>
+
+<li><a href="#about">About</a></li>
+
+<li><a href="#projects">Labs</a></li>
+
+<li><a href="#skills">Skills</a></li>
+
+<li><a href="#research">Research</a></li>
+
+<li><a href="#contact">Contact</a></li>
+
+
+</ul>
+
+
+</div>
+
+</nav>
+
+
+
+<main class="container">
+
+
+<section class="hero">
+
+
+<div>
+
+
+<div class="status">
+SYSTEM ONLINE
+</div>
+
+
+<h1>
+
+Emmy Apaloo
+
+<br>
+
+<span>
+Cybersecurity Analyst
+</span>
+
+<br>
+
+in Training
+
+</h1>
+
+
+<p>
+
+Building defensive security environments,
+analyzing threats, and documenting cybersecurity
+knowledge through hands-on labs and technical writing.
+
+</p>
+
+
+
+<div class="buttons">
+
+
+<a class="btn primary" href="#projects">
+View Security Labs
+</a>
+
+
+<a class="btn secondary" href="assets/Emmy-Apaloo-Resume.pdf">
+Download Resume
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="avatar-container">
+
+
+<div class="avatar">
+
+
+<div class="avatar-placeholder">
+
+<span>👩🏾‍💻</span>
+
+SOC ANALYST
+
+<br>
+
+PROFILE LOADING...
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+  <!-- ABOUT SECTION -->
+
+<section id="about" class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+01 / ABOUT_ME
+</div>
+
+<h2>
+Who I Am
+</h2>
+
+</div>
+
+
+<div class="about-grid">
+
+
+<div class="about-text">
+
+
+<p>
+
+I am a cybersecurity graduate student focused on developing practical
+security operations skills through hands-on labs, system administration,
+networking, and threat detection exercises.
+
+</p>
+
+
+<p>
+
+My approach combines technical implementation with strong documentation.
+I believe cybersecurity professionals must not only secure systems but
+also communicate findings clearly through reports, guides, and security
+documentation.
+
+</p>
+
+
+<p>
+
+My current focus areas include SOC operations, SIEM technologies,
+Linux administration, network security, and defensive security practices.
+
+</p>
+
+
+</div>
+
+
+
+<div class="profile-card">
+
+
+<div class="card-title">
+
+CURRENT_PROFILE
+
+</div>
+
+
+<div class="profile-line">
+
+<span>Role:</span>
+
+Cybersecurity Graduate Student
+
+</div>
+
+
+<div class="profile-line">
+
+<span>Focus:</span>
+
+SOC Operations
+
+</div>
+
+
+<div class="profile-line">
+
+<span>SIEM:</span>
+
+Wazuh
+
+</div>
+
+
+<div class="profile-line">
+
+<span>Systems:</span>
+
+Linux | Windows | Kali
+
+</div>
+
+
+<div class="profile-line">
+
+<span>Status:</span>
+
+<span class="green">
+
+Actively Building
+
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ACTIVE OPERATIONS -->
+
+<section id="operations" class="section">
+
+
+<div class="section-header">
+
+
+<div class="terminal-label">
+
+02 / ACTIVE_OPERATIONS
+
+</div>
+
+
+<h2>
+
+Current Security Lab
+
+</h2>
+
+
+</div>
+
+
+
+
+<div class="operations-card">
+
+
+<div class="operation-header">
+
+
+<div>
+
+HOME SOC LAB
+
+</div>
+
+
+<div class="online">
+
+● ACTIVE
+
+</div>
+
+
+</div>
+
+
+
+<div class="operation-grid">
+
+
+
+<div>
+
+
+<h3>
+Environment
+</h3>
+
+
+<ul>
+
+<li>VMware Workstation</li>
+
+<li>Ubuntu Server</li>
+
+<li>Windows 11 Endpoint</li>
+
+<li>Kali Linux</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<h3>
+Security Stack
+</h3>
+
+
+<ul>
+
+<li>Wazuh SIEM</li>
+
+<li>Log Monitoring</li>
+
+<li>Endpoint Detection</li>
+
+<li>Threat Analysis</li>
+
+</ul>
+
+
+</div>
+
+
+
+<div>
+
+
+<h3>
+Skills Practiced
+</h3>
+
+
+<ul>
+
+<li>Linux Administration</li>
+
+<li>Network Configuration</li>
+
+<li>Troubleshooting</li>
+
+<li>Security Documentation</li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- PROJECTS -->
+
+<section id="projects" class="section">
+
+
+<div class="section-header">
+
+
+<div class="terminal-label">
+
+03 / SECURITY_LABS
+
+</div>
+
+
+<h2>
+
+Featured Projects
+
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="projects-grid">
+
+
+
+
+
+<!-- WAZUH PROJECT -->
+
+
+<div class="project-card">
+
+
+<div class="project-number">
+
+01
+
+</div>
+
+
+<h3>
+
+Home SOC Lab with Wazuh
+
+</h3>
+
+
+<p>
+
+Built a virtual Security Operations Center environment using VMware,
+Windows 11, Ubuntu Server, Wazuh SIEM, and Kali Linux.
+
+The project includes infrastructure setup, networking,
+SIEM deployment, endpoint monitoring, troubleshooting,
+and technical documentation.
+
+</p>
+
+
+
+<div class="tags">
+
+
+<span>
+Wazuh
+</span>
+
+
+<span>
+SIEM
+</span>
+
+
+<span>
+Linux
+</span>
+
+
+<span>
+Windows
+</span>
+
+
+<span>
+SOC
+</span>
+
+
+</div>
+
+
+
+
+<div class="project-links">
+
+
+<a href="https://github.com/emmy-aa/Cyber-Projects/tree/main/home-soc-lab"
+target="_blank">
+
+View Repository →
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- FUTURE PROJECT -->
+
+
+<div class="project-card">
+
+
+<div class="project-number">
+
+02
+
+</div>
+
+
+<h3>
+
+Threat Hunting Lab
+
+</h3>
+
+
+<p>
+
+Future project exploring security event investigation,
+attack simulation, log analysis, and detection engineering
+using open-source security tools.
+
+</p>
+
+
+
+<div class="tags">
+
+
+<span>
+Threat Hunting
+</span>
+
+
+<span>
+Detection
+</span>
+
+
+<span>
+SIEM
+</span>
+
+
+</div>
+
+
+<div class="coming">
+
+COMING SOON
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- FUTURE PROJECT -->
+
+
+<div class="project-card">
+
+
+<div class="project-number">
+
+03
+
+</div>
+
+
+<h3>
+
+Network Security Infrastructure Lab
+
+</h3>
+
+
+<p>
+
+Enterprise-style network design project covering VLANs,
+routing, segmentation, DNS, DHCP, and security controls.
+
+</p>
+
+
+
+<div class="tags">
+
+
+<span>
+Networking
+</span>
+
+
+<span>
+Infrastructure
+</span>
+
+
+<span>
+Security
+</span>
+
+
+</div>
+
+
+<div class="coming">
+
+COMING SOON
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+  <!-- SECURITY ARSENAL -->
+
+<section id="skills" class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+04 / SECURITY_ARSENAL
+</div>
+
+<h2>
+Technical Skills
+</h2>
+
+</div>
+
+
+
+<div class="skills-terminal">
+
+
+<div class="skill-column">
+
+
+<h3>
+SECURITY OPERATIONS
+</h3>
+
+
+<ul>
+
+<li>
+<span>✓</span> Wazuh SIEM
+</li>
+
+<li>
+<span>✓</span> Log Analysis
+</li>
+
+<li>
+<span>✓</span> Threat Detection
+</li>
+
+<li>
+<span>✓</span> Security Monitoring
+</li>
+
+<li>
+<span>✓</span> Incident Response Fundamentals
+</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+<div class="skill-column">
+
+
+<h3>
+NETWORK SECURITY
+</h3>
+
+
+<ul>
+
+<li>
+<span>✓</span> TCP/IP
+</li>
+
+<li>
+<span>✓</span> VLANs
+</li>
+
+<li>
+<span>✓</span> DNS
+</li>
+
+<li>
+<span>✓</span> DHCP
+</li>
+
+<li>
+<span>✓</span> Network Troubleshooting
+</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+<div class="skill-column">
+
+
+<h3>
+SYSTEMS & TOOLS
+</h3>
+
+
+<ul>
+
+<li>
+<span>✓</span> Linux Administration
+</li>
+
+<li>
+<span>✓</span> Windows Security
+</li>
+
+<li>
+<span>✓</span> Kali Linux
+</li>
+
+<li>
+<span>✓</span> VMware
+</li>
+
+<li>
+<span>✓</span> Wireshark
+</li>
+
+</ul>
+
+
+</div>
+
+
+
+
+<div class="skill-column">
+
+
+<h3>
+DOCUMENTATION
+</h3>
+
+
+<ul>
+
+<li>
+<span>✓</span> Technical Reports
+</li>
+
+<li>
+<span>✓</span> Security Documentation
+</li>
+
+<li>
+<span>✓</span> SOPs & Runbooks
+</li>
+
+<li>
+<span>✓</span> Research Writing
+</li>
+
+<li>
+<span>✓</span> Markdown Documentation
+</li>
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- RESEARCH -->
+
+<section id="research" class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+05 / SECURITY_RESEARCH
+</div>
+
+
+<h2>
+Technical Writing & Research
+</h2>
+
+
+</div>
+
+
+
+
+<div class="research-grid">
+
+
+
+
+
+<div class="research-card">
+
+
+<div class="research-type">
+CYBERSECURITY
+</div>
+
+
+<h3>
+Understanding Phishing Attacks
+</h3>
+
+
+<p>
+
+A security overview explaining phishing techniques,
+attack vectors, social engineering methods,
+and prevention strategies.
+
+</p>
+
+
+<a href="samples/Understanding-Phishing-Attacks.pdf"
+target="_blank">
+
+Read Document →
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="research-card">
+
+
+<div class="research-type">
+LINUX SECURITY
+</div>
+
+
+<h3>
+Linux Command Line Techniques
+</h3>
+
+
+<p>
+
+A beginner-friendly guide documenting Linux commands
+and terminal techniques useful for security professionals.
+
+</p>
+
+
+<a href="samples/10-Linux-Command-Line-Tricks-Every-Beginner-Should-Know.pdf"
+target="_blank">
+
+Read Document →
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="research-card">
+
+
+<div class="research-type">
+TECHNICAL COMMUNICATION
+</div>
+
+
+<h3>
+Publishing Technical Content on Substack
+</h3>
+
+
+<p>
+
+A practical guide explaining the publishing workflow
+for creators and technical writers.
+
+</p>
+
+
+<a href="samples/How-to-Publish-on-Substack.pdf"
+target="_blank">
+
+Read Document →
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CERTIFICATIONS -->
+
+<section id="certifications" class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+06 / CERTIFICATION_PATH
+</div>
+
+
+<h2>
+Professional Development
+</h2>
+
+
+</div>
+
+
+
+
+<div class="cert-grid">
+
+
+<div class="cert-card">
+
+
+<div class="cert-status completed">
+COMPLETED
+</div>
+
+
+<h3>
+Google Cybersecurity Certificate
+</h3>
+
+
+<p>
+
+Foundations of cybersecurity,
+security operations, Linux,
+network security, and risk management.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="cert-card">
+
+
+<div class="cert-status progress">
+IN PROGRESS
+</div>
+
+
+<h3>
+CompTIA Security+
+</h3>
+
+
+<p>
+
+Currently building knowledge in:
+security architecture,
+threats, vulnerabilities,
+and incident response.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="cert-card">
+
+
+<div class="cert-status future">
+FUTURE GOAL
+</div>
+
+
+<h3>
+CompTIA CySA+
+</h3>
+
+
+<p>
+
+Future focus:
+Security monitoring,
+behavior analytics,
+and threat hunting.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CURRENT LEARNING -->
+
+<section class="section">
+
+
+<div class="section-header">
+
+
+<div class="terminal-label">
+07 / LEARNING_QUEUE
+</div>
+
+
+<h2>
+Currently Learning
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="learning-terminal">
+
+
+<div class="terminal-line">
+
+<span class="green">
+emmy@security-lab:~
+</span>
+
+$ cat learning.txt
+
+</div>
+
+
+
+<div class="learning-item">
+
+[01]
+
+Detection Engineering
+
+</div>
+
+
+
+<div class="learning-item">
+
+[02]
+
+Threat Hunting Methodologies
+
+</div>
+
+
+
+<div class="learning-item">
+
+[03]
+
+Python for Cybersecurity Automation
+
+</div>
+
+
+
+<div class="learning-item">
+
+[04]
+
+Cloud Security Fundamentals
+
+</div>
+
+
+
+<div class="learning-item">
+
+[05]
+
+Security Monitoring & SIEM Optimization
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- TIMELINE -->
+
+<section class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+08 / CAREER_TIMELINE
+</div>
+
+
+<h2>
+My Journey
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="timeline">
+
+
+<div class="timeline-item">
+
+<div class="year">
+2023
+</div>
+
+
+<div>
+
+<h3>
+B.A. Computer Science
+</h3>
+
+<p>
+Built foundational knowledge in computing,
+programming, and networking.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="timeline-item">
+
+<div class="year">
+2025
+</div>
+
+
+<div>
+
+<h3>
+Graduate Cybersecurity Studies
+</h3>
+
+<p>
+Advanced studies focused on cybersecurity,
+security architecture, and information systems.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="timeline-item">
+
+<div class="year">
+2026
+</div>
+
+
+<div>
+
+<h3>
+Built Home SOC Environment
+</h3>
+
+<p>
+Designed and deployed a virtual SOC lab
+using VMware, Wazuh, Ubuntu Server,
+Windows, and Kali Linux.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="timeline-item">
+
+<div class="year">
+NEXT
+</div>
+
+
+<div>
+
+<h3>
+SOC Analyst / Security Engineer
+</h3>
+
+<p>
+Continuing to develop defensive security,
+detection engineering, and automation skills.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+  <!-- RESUME -->
+
+<section class="section" id="resume">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+09 / PROFESSIONAL_PROFILE
+</div>
+
+
+<h2>
+Resume & Opportunities
+</h2>
+
+
+</div>
+
+
+
+
+<div class="resume-card">
+
+
+<div>
+
+
+<h3>
+Open to Cybersecurity Opportunities
+</h3>
+
+
+<p>
+
+Interested in SOC Analyst roles, cybersecurity internships,
+security documentation projects, and opportunities where I can
+combine technical skills with clear communication.
+
+</p>
+
+
+</div>
+
+
+
+
+<a href="assets/Emmy-Apaloo-Resume.pdf"
+class="btn primary"
+target="_blank">
+
+View Resume →
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="section">
+
+
+<div class="section-header">
+
+<div class="terminal-label">
+10 / CONTACT_PROTOCOL
+</div>
+
+
+<h2>
+Let's Connect
+</h2>
+
+
+</div>
+
+
+
+
+
+<div class="contact-card">
+
+
+<div class="contact-terminal">
+
+
+<div>
+
+<span class="green">
+emmy@portfolio
+</span>
+
+:~$
+
+connect
+
+</div>
+
+
+<br>
+
+
+<div>
+
+> cybersecurity discussions
+
+</div>
+
+
+<div>
+
+> collaboration opportunities
+
+</div>
+
+
+<div>
+
+> technical writing projects
+
+</div>
+
+
+<div>
+
+> security research
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="contact-buttons">
+
+
+<a href="mailto:e.apaloo@icloud.com"
+class="btn primary">
+
+Email Me
+
+</a>
+
+
+
+
+<a href="https://www.linkedin.com/in/emefa-apaloo/"
+target="_blank"
+class="btn secondary">
+
+LinkedIn
+
+</a>
+
+
+
+
+
+<a href="https://github.com/emmy-aa"
+target="_blank"
+class="btn secondary">
+
+GitHub
+
+</a>
+
+
+
+
+<a href="#"
+class="btn secondary">
+
+Substack
+
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<footer>
+
+
+<div class="container">
+
+
+<p>
+
+EMMY APALOO
+
+<br>
+
+Cybersecurity Portfolio
+
+<br>
+
+Built with HTML • CSS • GitHub Pages
+
+</p>
+
+
+</div>
+
+
+</footer>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+// Terminal typing effect
+
+
+const terminalLines = document.querySelectorAll(
+".terminal-line"
+);
+
+
+terminalLines.forEach((line)=>{
+
+line.style.opacity="0";
+
+setTimeout(()=>{
+
+line.style.opacity="1";
+
+},500);
+
+
+});
+
+
+
+
+
+
+// Scroll reveal animation
+
+
+const sections =
+document.querySelectorAll(".section");
+
+
+
+const observer =
+new IntersectionObserver(
+(entries)=>{
+
+
+entries.forEach(entry=>{
+
+
+if(entry.isIntersecting){
+
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0)";
+
+
+}
+
+
+});
+
+
+},
+{
+threshold:.15
+}
+
+);
+
+
+
+
+sections.forEach(section=>{
+
+
+section.style.opacity="0";
+
+section.style.transform=
+"translateY(30px)";
+
+section.style.transition=
+"all .7s ease";
+
+
+observer.observe(section);
+
+
+});
+
+
+
+</script>
+
+
+</body>
+
+</html>
 <style>
   :root {
     --bg: #0f0e0c;
@@ -502,6 +2728,784 @@
   .hero h1 { animation-delay: 0.2s; }
   .hero p { animation-delay: 0.3s; }
   .hero-links { animation-delay: 0.4s; }
+
+  /* GLOBAL SECTIONS */
+
+.section{
+
+padding:6rem 0;
+
+border-top:1px solid var(--border);
+
+}
+
+
+.section-header{
+
+margin-bottom:3rem;
+
+}
+
+
+.terminal-label{
+
+font-family:var(--mono);
+
+color:var(--green);
+
+font-size:.8rem;
+
+letter-spacing:.1em;
+
+margin-bottom:1rem;
+
+}
+
+
+.section h2{
+
+font-size:2.5rem;
+
+}
+
+
+
+
+
+/* ABOUT */
+
+
+.about-grid{
+
+display:grid;
+
+grid-template-columns:1.5fr 1fr;
+
+gap:3rem;
+
+}
+
+
+
+.about-text p{
+
+color:var(--muted);
+
+margin-bottom:1.5rem;
+
+font-size:1.05rem;
+
+}
+
+
+
+
+
+.profile-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+padding:2rem;
+
+border-radius:12px;
+
+font-family:var(--mono);
+
+}
+
+
+
+.card-title{
+
+color:var(--green);
+
+margin-bottom:1.5rem;
+
+}
+
+
+.profile-line{
+
+padding:.7rem 0;
+
+border-bottom:1px solid var(--border);
+
+}
+
+
+
+.profile-line span:first-child{
+
+color:var(--blue);
+
+}
+
+
+
+
+
+/* OPERATIONS */
+
+
+.operations-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+overflow:hidden;
+
+}
+
+
+
+.operation-header{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:1.5rem;
+
+border-bottom:1px solid var(--border);
+
+font-family:var(--mono);
+
+}
+
+
+
+.online{
+
+color:var(--green);
+
+}
+
+
+
+
+.operation-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:2rem;
+
+padding:2rem;
+
+}
+
+
+
+.operation-grid h3{
+
+font-family:var(--mono);
+
+color:var(--blue);
+
+font-size:.9rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+.operation-grid ul{
+
+list-style:none;
+
+color:var(--muted);
+
+}
+
+
+
+.operation-grid li{
+
+margin:.5rem 0;
+
+}
+
+
+
+
+/* PROJECT CARDS */
+
+
+.projects-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:1.5rem;
+
+}
+
+
+
+.project-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+padding:2rem;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+
+
+.project-card:hover{
+
+transform:translateY(-8px);
+
+border-color:var(--green);
+
+box-shadow:
+0 0 30px rgba(0,255,157,.1);
+
+}
+
+
+
+.project-number{
+
+font-family:var(--mono);
+
+color:var(--green);
+
+font-size:.8rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+.project-card h3{
+
+font-size:1.5rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+.project-card p{
+
+color:var(--muted);
+
+margin-bottom:1.5rem;
+
+}
+
+
+
+.tags{
+
+display:flex;
+
+gap:.5rem;
+
+flex-wrap:wrap;
+
+}
+
+
+
+.tags span{
+
+font-family:var(--mono);
+
+font-size:.75rem;
+
+border:1px solid var(--border);
+
+padding:.3rem .7rem;
+
+border-radius:20px;
+
+color:var(--green);
+
+}
+
+
+
+.project-links{
+
+margin-top:2rem;
+
+}
+
+
+
+.project-links a{
+
+font-family:var(--mono);
+
+color:var(--green);
+
+text-decoration:none;
+
+}
+
+
+
+.coming{
+
+margin-top:1.5rem;
+
+font-family:var(--mono);
+
+font-size:.8rem;
+
+color:var(--muted);
+
+}
+
+
+
+
+@media(max-width:900px){
+
+.about-grid,
+.operation-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+  /* SECURITY ARSENAL */
+
+
+.skills-terminal{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:1.5rem;
+
+}
+
+
+.skill-column{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+padding:2rem;
+
+border-radius:12px;
+
+}
+
+
+
+.skill-column h3{
+
+font-family:var(--mono);
+
+font-size:.9rem;
+
+color:var(--blue);
+
+margin-bottom:1.5rem;
+
+}
+
+
+
+.skill-column ul{
+
+list-style:none;
+
+}
+
+
+
+.skill-column li{
+
+color:var(--muted);
+
+margin:.7rem 0;
+
+}
+
+
+
+.skill-column span{
+
+color:var(--green);
+
+}
+
+
+
+
+/* RESEARCH */
+
+
+.research-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:1.5rem;
+
+}
+
+
+
+.research-card,
+.cert-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+padding:2rem;
+
+border-radius:12px;
+
+}
+
+
+
+.research-type{
+
+font-family:var(--mono);
+
+font-size:.75rem;
+
+color:var(--green);
+
+margin-bottom:1rem;
+
+}
+
+
+
+.research-card p,
+.cert-card p{
+
+color:var(--muted);
+
+margin:1rem 0;
+
+}
+
+
+
+.research-card a{
+
+color:var(--green);
+
+font-family:var(--mono);
+
+text-decoration:none;
+
+}
+
+
+
+
+/* CERTIFICATIONS */
+
+
+.cert-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:1.5rem;
+
+}
+
+
+
+.cert-status{
+
+font-family:var(--mono);
+
+font-size:.75rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+.completed{
+
+color:var(--green);
+
+}
+
+
+.progress{
+
+color:#00b8ff;
+
+}
+
+
+.future{
+
+color:#888;
+
+}
+
+
+
+
+/* LEARNING */
+
+
+.learning-terminal{
+
+background:#020202;
+
+border:1px solid var(--border);
+
+padding:2rem;
+
+border-radius:12px;
+
+font-family:var(--mono);
+
+}
+
+
+
+.learning-item{
+
+padding:1rem 0;
+
+border-bottom:1px solid var(--border);
+
+color:var(--text);
+
+}
+
+
+
+
+/* TIMELINE */
+
+
+.timeline{
+
+border-left:2px solid var(--green);
+
+padding-left:2rem;
+
+}
+
+
+
+.timeline-item{
+
+display:grid;
+
+grid-template-columns:100px 1fr;
+
+gap:2rem;
+
+margin-bottom:3rem;
+
+}
+
+
+
+.year{
+
+font-family:var(--mono);
+
+color:var(--green);
+
+}
+
+
+
+.timeline-item p{
+
+color:var(--muted);
+
+}
+
+
+
+@media(max-width:700px){
+
+.timeline-item{
+
+grid-template-columns:1fr;
+
+}
+
+}
+  /* RESUME */
+
+
+.resume-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+padding:2.5rem;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:2rem;
+
+}
+
+
+
+.resume-card h3{
+
+font-size:1.6rem;
+
+margin-bottom:1rem;
+
+}
+
+
+
+.resume-card p{
+
+color:var(--muted);
+
+max-width:650px;
+
+}
+
+
+
+
+
+
+
+/* CONTACT */
+
+
+.contact-card{
+
+background:var(--card);
+
+border:1px solid var(--border);
+
+border-radius:12px;
+
+padding:2.5rem;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:2rem;
+
+}
+
+
+
+.contact-terminal{
+
+font-family:var(--mono);
+
+color:var(--muted);
+
+line-height:2;
+
+}
+
+
+
+.contact-buttons{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:1rem;
+
+}
+
+
+
+
+
+/* FOOTER */
+
+
+footer{
+
+padding:3rem 0;
+
+border-top:1px solid var(--border);
+
+text-align:center;
+
+}
+
+
+
+footer p{
+
+font-family:var(--mono);
+
+font-size:.8rem;
+
+color:var(--muted);
+
+line-height:2;
+
+}
+
+
+
+
+
+@media(max-width:800px){
+
+
+.resume-card,
+.contact-card{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+
+}
 </style>
 </head>
 <body>
