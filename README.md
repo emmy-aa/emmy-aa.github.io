@@ -8,7 +8,7 @@ This repository showcases both my **technical writing** and **hands-on cybersecu
 
 ## About Me
 
-I'm a graduate student pursuing an **M.S. in Computer Information Sciences** with a concentration in **Cybersecurity** at Harrisburg University of Science and Technology. I also hold an **M.A.S. in Cyber Forensics and Security** from Illinois Institute of Technology and a **B.A. in Computer Science** from Hanover College.
+I'm a graduate student pursuing an **M.S. in Computer Information Sciences** with a concentration in **Cybersecurity** at Harrisburg University of Science and Technology. I also hold a **B.A. in Computer Science** from Hanover College.
 
 I'm passionate about cybersecurity, technical writing, and continuous learning. My goal is to bridge the gap between complex security concepts and practical implementation by creating documentation that is accurate, accessible, and useful to both technical and non-technical audiences.
 
