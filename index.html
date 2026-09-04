@@ -3,11 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Emmy Apaloo — cybersecurity portfolio, security labs, and technical writing.">
+  <meta name="description" content="Emmy Apaloo — cybersecurity portfolio, security labs, credentials, and technical writing.">
   <title>Emmy Apaloo — Cybersecurity Portfolio Site</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
   <style>
     :root {
       --ink: #161716;
@@ -17,41 +26,60 @@
       --pine: #173d35;
       --moss: #6e8c62;
       --coral: #ee795d;
+      --muted: #5b5c54;
+      --accent-text: var(--pine);
+      --nav-bg: rgba(246,243,236,.88);
       --mono: "DM Mono", monospace;
       --sans: "DM Sans", sans-serif;
       --serif: "Playfair Display", serif;
     }
 
+    [data-theme="dark"] {
+      --ink: #efece3;
+      --paper: #121310;
+      --soft: #1c1e18;
+      --line: #2d3029;
+      --moss: #8bb379;
+      --coral: #ff9376;
+      --muted: #a7a89c;
+      --accent-text: #8fe0b6;
+      --nav-bg: rgba(18,19,16,.82);
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); transition: background .25s ease, color .25s ease; }
     a { color: inherit; }
     .shell { max-width: 1180px; margin: auto; padding: 0 28px; }
 
     .progress { position: fixed; inset: 0 auto auto 0; height: 3px; width: 0; z-index: 30; background: var(--coral); transition: width .08s linear; }
-    nav { position: sticky; top: 0; z-index: 10; background: rgba(246,243,236,.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
-    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { text-decoration: none; font-family: var(--mono); font-size: 15px; font-weight: 500; letter-spacing: -.08em; }
+    nav { position: sticky; top: 0; z-index: 10; background: var(--nav-bg); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { text-decoration: none; font-family: var(--mono); font-size: 15px; font-weight: 500; letter-spacing: -.08em; white-space: nowrap; }
     .brand span { color: var(--coral); }
-    .nav-links { display: flex; gap: 23px; list-style: none; padding: 0; margin: 0; font-size: 14px; }
+    .nav-links { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0; font-size: 13.5px; }
     .nav-links a { text-decoration: none; }
     .nav-links a:hover { color: var(--coral); }
-    .command-button { padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: transparent; font: 11px var(--mono); cursor: pointer; color: var(--ink); }
-    .command-button:hover { border-color: var(--pine); color: var(--pine); }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .command-button, .theme-toggle { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: transparent; font: 11px var(--mono); cursor: pointer; color: var(--ink); line-height: 1.4; }
+    .command-button { border-radius: 5px; }
+    .command-button:hover { border-color: var(--pine); color: var(--accent-text); }
+    .theme-toggle { font-size: 14px; padding: 7px 9px; }
+    .theme-toggle:hover { border-color: var(--pine); }
 
     .hero { min-height: 670px; display: grid; grid-template-columns: 1.3fr .7fr; gap: 50px; align-items: center; padding: 90px 0 70px; }
-    .eyebrow, .label { font: 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--pine); }
+    .eyebrow, .label { font: 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); }
     .eyebrow::before { content: "●"; color: var(--coral); margin-right: 9px; }
     h1 { font: 700 clamp(50px, 7vw, 94px)/.93 var(--serif); letter-spacing: -.055em; margin: 24px 0; max-width: 800px; }
-    h1 em { color: var(--pine); font-weight: 600; }
-    .hero-copy { max-width: 570px; font-size: 18px; line-height: 1.65; color: #4e504c; }
+    h1 em { color: var(--accent-text); font-weight: 600; font-style: normal; }
+    .hero-copy { max-width: 570px; font-size: 18px; line-height: 1.65; color: var(--muted); }
     .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-    .button { display: inline-flex; align-items: center; gap: 11px; padding: 14px 18px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 700; transition: transform .2s, background .2s; }
-    .button:hover { transform: translateY(-3px); }
-    .button.primary { background: var(--pine); color: white; }
+    .button { display: inline-flex; align-items: center; gap: 11px; padding: 14px 18px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 700; transition: transform .2s, background .2s, box-shadow .2s; }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(23,61,53,.18); }
+    .button.primary { background: var(--pine); color: #f6f3ec; }
     .button.secondary { border: 1px solid var(--ink); }
 
-    .hero-card { color: var(--paper); background: var(--pine); min-height: 410px; border-radius: 22px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 13px 13px 0 var(--moss); }
+    .hero-card { color: #f6f3ec; background: var(--pine); min-height: 410px; border-radius: 22px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 13px 13px 0 var(--moss); }
     .hero-card::after { content: ""; position: absolute; width: 260px; height: 260px; right: -90px; top: -80px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; box-shadow: 0 0 0 35px rgba(255,255,255,.05), 0 0 0 70px rgba(255,255,255,.04); }
     .signal { font: 12px var(--mono); color: #d4e3bb; z-index: 1; }
     .signal i { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: #b7e37e; box-shadow: 0 0 0 5px rgba(183,227,126,.15); }
@@ -65,19 +93,29 @@
 
     .about { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: start; }
     .about-big { font: 600 clamp(28px, 3vw, 42px)/1.14 var(--serif); letter-spacing: -.035em; margin: 0; }
-    .about-copy { color: #545550; font-size: 17px; line-height: 1.7; }
+    .about-copy { color: var(--muted); font-size: 17px; line-height: 1.7; }
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin-top: 35px; }
     .stat { padding: 18px 13px 0 0; }
     .stat + .stat { border-left: 1px solid var(--line); padding-left: 16px; }
-    .stat strong { display: block; font: 600 27px var(--serif); color: var(--pine); }
-    .stat span { display: block; margin-top: 4px; color: #6e706a; font-size: 12px; }
+    .stat strong { display: block; font: 600 27px var(--serif); color: var(--accent-text); }
+    .stat span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+
+    /* Experience */
+    .role-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .role { background: var(--paper); padding: 28px; display: grid; grid-template-columns: 140px 1fr auto; gap: 24px; align-items: center; transition: background .2s; }
+    .role:hover { background: var(--soft); }
+    .role-period { font: 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .role-body h3 { margin: 0 0 8px; font: 600 23px/1.2 var(--serif); letter-spacing: -.02em; }
+    .role-body p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; max-width: 560px; }
+    .role-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+    .role-status { font: 10.5px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 6px 11px; border-radius: 999px; border: 1px solid currentColor; color: var(--accent-text); white-space: nowrap; justify-self: end; }
 
     .project-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; }
     .project { min-height: 330px; border-radius: 18px; padding: 27px; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; border: 1px solid var(--line); transition: transform .22s, box-shadow .22s; }
     .project:hover { transform: translateY(-6px); box-shadow: 0 12px 0 var(--line); }
-    .project.featured { background: var(--pine); color: white; border: 0; }
-    .project.light { background: #e8d9c0; }
-    .project.mint { background: #cfe1cc; }
+    .project.featured { background: var(--pine); color: #f6f3ec; border: 0; }
+    .project.light { background: #e8d9c0; color: #221f1b; }
+    .project.mint { background: #cfe1cc; color: #17281c; }
     .project-grid .mint { grid-column: 1; }
     .project-grid .light { grid-column: 2; grid-row: span 2; }
     .project-kind { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; opacity: .72; }
@@ -91,14 +129,35 @@
     .skills { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); border-bottom: 0; }
     .skill { padding: 26px; min-height: 173px; border-bottom: 1px solid var(--line); }
     .skill:nth-child(odd) { border-right: 1px solid var(--line); }
-    .skill h3 { margin: 0 0 18px; color: var(--pine); font: 500 14px var(--mono); }
+    .skill h3 { margin: 0 0 18px; color: var(--accent-text); font: 500 14px var(--mono); }
     .skill ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 9px; }
     .skill li { padding: 7px 10px; background: var(--soft); border-radius: 4px; font-size: 13px; }
 
+    /* Credentials */
+    .credentials-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; align-items: stretch; }
+    .cert-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+    .cert { background: var(--paper); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: background .2s; }
+    .cert:hover { background: var(--soft); }
+    .cert-name { font: 600 16px var(--sans); }
+    .cert-issuer { display: block; margin-top: 3px; font: 12px var(--mono); color: var(--muted); }
+    .cert-status { font: 10px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+    .cert-status.done { background: #d7ecd0; color: #1f4a1a; }
+    .cert-status.progress { background: #f5e3c2; color: #6b4a12; }
+    [data-theme="dark"] .cert-status.done { background: #1c3a1a; color: #b9e6ab; }
+    [data-theme="dark"] .cert-status.progress { background: #4a3712; color: #f3d999; }
+    .publication-card { background: var(--pine); color: #f6f3ec; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 22px; }
+    .publication-card .label { color: #bcd7c9; }
+    .publication-card h3 { margin: 10px 0 0; font: 600 25px/1.25 var(--serif); letter-spacing: -.02em; }
+    .publication-card p { margin: 0; font-size: 14px; line-height: 1.6; color: #d7e6dd; }
+    .publication-link { font: 12px var(--mono); color: #f6f3ec; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .publication-link:hover { color: #c9e5a9; }
+
     .writing { background: var(--ink); color: var(--paper); }
+    [data-theme="dark"] .writing { background: #0b0c09; }
     .writing .label { color: #b6d49e; }
     .writing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #4d5049; border: 1px solid #4d5049; }
     .writing-card { background: var(--ink); padding: 28px; min-height: 270px; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; transition: background .2s; }
+    [data-theme="dark"] .writing-card { background: #0b0c09; }
     .writing-card:hover { background: #292b28; }
     .writing-card h3 { margin: 12px 0; font: 600 27px/1.05 var(--serif); letter-spacing: -.03em; }
     .writing-card p { color: #c1c1b7; font-size: 14px; line-height: 1.55; }
@@ -109,24 +168,28 @@
     .contact-note { padding: 25px; background: var(--coral); border-radius: 14px; color: #2b211e; }
     .contact-note p { font: 600 23px/1.15 var(--serif); margin: 0 0 22px; }
     .contact-links { display: flex; gap: 17px; flex-wrap: wrap; font: 13px var(--mono); }
-    footer { padding: 28px 0; border-top: 1px solid var(--line); font: 11px var(--mono); color: #74746e; }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); font: 11px var(--mono); color: var(--muted); }
     footer .shell { display: flex; justify-content: space-between; }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .palette { position: fixed; inset: 0; z-index: 40; display: grid; place-items: start center; padding: 14vh 18px; background: rgba(22,23,22,.42); opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+    .palette { position: fixed; inset: 0; z-index: 40; display: grid; place-items: start center; padding: 14vh 18px; background: rgba(10,10,9,.5); opacity: 0; pointer-events: none; transition: opacity .2s ease; }
     .palette.open { opacity: 1; pointer-events: auto; }
-    .palette-window { width: min(560px, 100%); overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: 13px; box-shadow: 0 24px 70px rgba(0,0,0,.25); transform: translateY(-10px); transition: transform .2s ease; }
+    .palette-window { width: min(560px, 100%); overflow: hidden; background: var(--paper); border: 1px solid var(--line); border-radius: 13px; box-shadow: 0 24px 70px rgba(0,0,0,.35); transform: translateY(-10px); transition: transform .2s ease; }
     .palette.open .palette-window { transform: translateY(0); }
     .palette-input { width: 100%; padding: 19px 20px; outline: 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); font: 15px var(--mono); }
     .palette-list { padding: 8px; }
     .palette-list a { display: flex; align-items: center; justify-content: space-between; padding: 13px 12px; border-radius: 7px; text-decoration: none; font-size: 14px; }
     .palette-list a:hover, .palette-list a:focus { background: var(--soft); outline: 0; }
-    .palette-list kbd { color: #77776f; font: 10px var(--mono); }
+    .palette-list kbd { color: var(--muted); font: 10px var(--mono); }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 13px; font-size: 12.5px; }
+    }
 
     @media (max-width: 760px) {
       .shell { padding: 0 18px; }
       .nav-links { display: none; }
-      .hero, .about, .contact { grid-template-columns: 1fr; }
+      .hero, .about, .contact, .credentials-grid { grid-template-columns: 1fr; }
       .hero { padding: 65px 0; min-height: 0; gap: 40px; }
       .hero-card { min-height: 300px; }
       section { padding: 70px 0; }
@@ -136,6 +199,9 @@
       .skill:nth-child(odd) { border-right: 0; }
       .stats { grid-template-columns: 1fr; }
       .stat + .stat { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+      .role { grid-template-columns: 1fr; gap: 10px; }
+      .role-status { justify-self: start; }
+      .cert { flex-direction: column; align-items: flex-start; gap: 8px; }
       footer .shell { gap: 8px; flex-direction: column; }
     }
   </style>
@@ -145,8 +211,11 @@
   <nav>
     <div class="shell nav-inner">
       <a class="brand" href="#top">EMEFA APALOO<span>_</span></a>
-      <ul class="nav-links"><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#writing">Writing</a></li><li><a href="#contact">Contact</a></li></ul>
-      <button class="command-button" type="button" data-palette-open aria-label="Open site navigation">⌘ K</button>
+      <ul class="nav-links"><li><a href="#about">About</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#credentials">Credentials</a></li><li><a href="#writing">Writing</a></li><li><a href="#contact">Contact</a></li></ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">◐</button>
+        <button class="command-button" type="button" data-palette-open aria-label="Open site navigation">⌘ K</button>
+      </div>
     </div>
   </nav>
 
@@ -169,15 +238,39 @@
     </section>
 
     <section id="about" class="reveal">
-      <div class="section-top"><div><div class="label">01 / About</div><h2>Technical curiosity,<br>communicated clearly.</h2></div><span class="section-number">01—04</span></div>
+      <div class="section-top"><div><div class="label">01 / About</div><h2>Technical curiosity,<br>communicated clearly.</h2></div><span class="section-number">01—07</span></div>
       <div class="about">
         <p class="about-big">I am developing practical security operations skills through real lab environments, analysis, and documentation.</p>
-        <div><p class="about-copy">I’m pursuing an M.S. in Computer Information Sciences with a cybersecurity concentration at Harrisburg University. My work lives at the intersection of defensive security, systems administration, and technical writing.</p><div class="stats"><div class="stat"><strong>01</strong><span>Featured SOC lab</span></div><div class="stat"><strong>4+</strong><span>Security focus areas</span></div><div class="stat"><strong>∞</strong><span>Things to learn</span></div></div></div>
+        <div><p class="about-copy">I’m pursuing an M.S. in Computer Information Sciences with a cybersecurity concentration at Harrisburg University, maintaining a 4.0 GPA. My work lives at the intersection of defensive security, systems administration, and technical writing — and includes a peer-reviewed book chapter on Zero Trust Architecture.</p><div class="stats"><div class="stat"><strong>4.0</strong><span>Graduate GPA</span></div><div class="stat"><strong>4+</strong><span>Security focus areas</span></div><div class="stat"><strong>∞</strong><span>Things to learn</span></div></div></div>
+      </div>
+    </section>
+
+    <section id="experience" class="reveal">
+      <div class="section-top"><div><div class="label">02 / Experience</div><h2>Applying security<br>skills on real teams.</h2></div><span class="section-number">02—07</span></div>
+      <div class="role-list">
+        <div class="role">
+          <div class="role-period">2026</div>
+          <div class="role-body">
+            <h3>Cybersecurity Intern — Cybanext Technologies</h3>
+            <p>Placed across the SOC Analyst and Cloud Security tracks in a fully remote internship, approved through Harrisburg University's CPT process.</p>
+            <div class="role-tags"><span class="tag">SOC</span><span class="tag">Cloud Security</span><span class="tag">Remote</span></div>
+          </div>
+          <span class="role-status">In progress</span>
+        </div>
+        <div class="role">
+          <div class="role-period">2024</div>
+          <div class="role-body">
+            <h3>Web Development &amp; Design Intern — Madison Travel Company</h3>
+            <p>Redesigned 8+ site pages, fixed 20+ plugins, and wrote internal documentation guides; changes contributed to a 50% increase in SEO traffic.</p>
+            <div class="role-tags"><span class="tag">Web Dev</span><span class="tag">SEO</span><span class="tag">Documentation</span></div>
+          </div>
+          <span class="role-status">Completed</span>
+        </div>
       </div>
     </section>
 
     <section id="projects" class="reveal">
-      <div class="section-top"><div><div class="label">02 / Selected work</div><h2>Labs built to learn<br>by doing.</h2></div><span class="section-number">02—04</span></div>
+      <div class="section-top"><div><div class="label">03 / Selected work</div><h2>Labs built to learn<br>by doing.</h2></div><span class="section-number">03—07</span></div>
       <div class="project-grid">
         <a class="project featured" href="https://github.com/emmy-aa/Cyber-Projects/tree/main/home-soc-lab" target="_blank" rel="noopener"><div><div class="project-kind">Cybersecurity lab / 01</div><h3>Home SOC Lab<br>with Wazuh</h3><p>A virtual security operations environment for learning SIEM deployment, endpoint monitoring, network configuration, and troubleshooting.</p></div><div class="project-footer"><div class="tags"><span class="tag">Wazuh</span><span class="tag">Linux</span><span class="tag">SIEM</span></div><span class="arrow">↗</span></div></a>
         <div class="project light"><div><div class="project-kind">In progress / 02</div><h3>Threat Hunting Lab</h3><p>Attack simulation, log analysis, and detection engineering with open-source tools.</p></div><div class="project-footer"><span>Coming soon</span><span class="arrow">→</span></div></div>
@@ -186,7 +279,7 @@
     </section>
 
     <section id="skills" class="reveal">
-      <div class="section-top"><div><div class="label">03 / Toolkit</div><h2>What I work with.</h2></div><span class="section-number">03—04</span></div>
+      <div class="section-top"><div><div class="label">04 / Toolkit</div><h2>What I work with.</h2></div><span class="section-number">04—07</span></div>
       <div class="skills">
         <article class="skill"><h3>SECURITY OPERATIONS</h3><ul><li>Wazuh SIEM</li><li>Log analysis</li><li>Threat detection</li><li>Incident response</li></ul></article>
         <article class="skill"><h3>SYSTEMS &amp; NETWORKS</h3><ul><li>Linux</li><li>Windows</li><li>TCP/IP</li><li>DNS / DHCP</li><li>Wireshark</li></ul></article>
@@ -194,13 +287,31 @@
         <article class="skill"><h3>DOCUMENTATION</h3><ul><li>Technical reports</li><li>How-to guides</li><li>SOPs</li><li>Research writing</li></ul></article>
       </div>
     </section>
+
+    <section id="credentials" class="reveal">
+      <div class="section-top"><div><div class="label">05 / Credentials</div><h2>Certifications &amp;<br>published research.</h2></div><span class="section-number">05—07</span></div>
+      <div class="credentials-grid">
+        <div class="cert-list">
+          <div class="cert"><div><span class="cert-name">Foundations of Cybersecurity</span><span class="cert-issuer">Google</span></div><span class="cert-status done">Completed</span></div>
+          <div class="cert"><div><span class="cert-name">Play It Safe: Manage Security Risks</span><span class="cert-issuer">Google</span></div><span class="cert-status done">Completed</span></div>
+          <div class="cert"><div><span class="cert-name">Google Cybersecurity Professional Certificate</span><span class="cert-issuer">Google</span></div><span class="cert-status progress">In progress</span></div>
+          <div class="cert"><div><span class="cert-name">CompTIA Security+</span><span class="cert-issuer">CompTIA</span></div><span class="cert-status progress">In progress</span></div>
+        </div>
+        <div class="publication-card">
+          <div><div class="label">Peer-reviewed chapter</div><h3>Zero Trust Architecture in Cloud Security</h3><p>Co-authored book chapter published in an IGI Global research volume on cloud security and forensics.</p></div>
+          <a class="publication-link" href="https://www.igi-global.com/chapter/zero-trust-architecture-in-cloud-security/367222" target="_blank" rel="noopener">READ THE CHAPTER ↗</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <section id="writing" class="writing reveal">
-    <div class="shell"><div class="section-top"><div><div class="label">04 / Technical writing</div><h2>Useful explanations<br>for complicated things.</h2></div><span class="section-number">04—04</span></div><div class="writing-grid">
+    <div class="shell"><div class="section-top"><div><div class="label">06 / Technical writing</div><h2>Useful explanations<br>for complicated things.</h2></div><span class="section-number">06—07</span></div><div class="writing-grid">
       <a class="writing-card" href="samples/Understanding-Phishing-Attacks.pdf" target="_blank"><div><div class="label">Cybersecurity</div><h3>Understanding Phishing Attacks</h3><p>An accessible overview of phishing tactics, attack vectors, and prevention.</p></div><span class="read">READ PDF ↗</span></a>
       <a class="writing-card" href="samples/10-Linux-Command-Line-Tricks-Every-Beginner-Should-Know.pdf" target="_blank"><div><div class="label">Linux / Open Source</div><h3>10 Linux Command Line Tricks</h3><p>A beginner-friendly guide to feeling more at home in the terminal.</p></div><span class="read">READ PDF ↗</span></a>
       <a class="writing-card" href="samples/How-to-Publish-on-Substack.pdf" target="_blank"><div><div class="label">Technical communication</div><h3>How to Publish on Substack</h3><p>A practical, step-by-step publishing guide for new creators.</p></div><span class="read">READ PDF ↗</span></a>
+      <!-- TODO(Emmy): confirm the live URL for The Cybersecurity Notebook before merging — placeholder below points to your Substack profile. -->
+      <a class="writing-card" href="https://eapaloo.substack.com/" target="_blank" rel="noopener"><div><div class="label">Substack publication</div><h3>The Cybersecurity Notebook</h3><p>Notes and explainers written while learning security concepts and tools.</p></div><span class="read">READ ON SUBSTACK ↗</span></a>
     </div></div>
   </section>
 
@@ -211,10 +322,12 @@
       <input class="palette-input" data-palette-input type="text" placeholder="Jump to a section…" autocomplete="off">
       <div class="palette-list">
         <a href="#about"><span>About</span><kbd>01</kbd></a>
-        <a href="#projects"><span>Selected projects</span><kbd>02</kbd></a>
-        <a href="#skills"><span>Toolkit</span><kbd>03</kbd></a>
-        <a href="#writing"><span>Technical writing</span><kbd>04</kbd></a>
-        <a href="#contact"><span>Get in touch</span><kbd>05</kbd></a>
+        <a href="#experience"><span>Experience</span><kbd>02</kbd></a>
+        <a href="#projects"><span>Selected projects</span><kbd>03</kbd></a>
+        <a href="#skills"><span>Toolkit</span><kbd>04</kbd></a>
+        <a href="#credentials"><span>Credentials</span><kbd>05</kbd></a>
+        <a href="#writing"><span>Technical writing</span><kbd>06</kbd></a>
+        <a href="#contact"><span>Get in touch</span><kbd>07</kbd></a>
       </div>
     </div>
   </div>
@@ -224,6 +337,20 @@
       const height = document.documentElement.scrollHeight - innerHeight;
       progress.style.width = `${height ? (scrollY / height) * 100 : 0}%`;
     }, { passive: true });
+
+    const root = document.documentElement;
+    const themeToggle = document.querySelector('[data-theme-toggle]');
+    const applyTheme = (theme) => {
+      if (theme === 'dark') root.setAttribute('data-theme', 'dark');
+      else root.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+      themeToggle.textContent = theme === 'dark' ? '☀' : '◐';
+      themeToggle.setAttribute('aria-pressed', theme === 'dark');
+    };
+    applyTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+    themeToggle.addEventListener('click', () => {
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
 
     const palette = document.querySelector('[data-palette]');
     const paletteInput = document.querySelector('[data-palette-input]');
